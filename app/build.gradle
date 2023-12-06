@@ -19,12 +19,12 @@ android {
     }
 
     compileOptions {
-        targetCompatibility JavaVersion.VERSION_19
-        sourceCompatibility JavaVersion.VERSION_19
+        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '19'
+        jvmTarget = '17'
     }
 
     buildFeatures {
@@ -60,7 +60,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation("org.owasp:dependency-check-gradle:8.4.2")
+    implementation('org.owasp:dependency-check-gradle:8.4.3')
 
     // For media playback using ExoPlayer
     implementation("androidx.media3:media3-exoplayer:$media3_version")
@@ -114,12 +114,12 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 
     //Coil
-    implementation('io.coil-kt:coil:2.4.0')
-    implementation('io.coil-kt:coil-compose:2.4.0')
-    implementation('io.coil-kt:coil-base:2.4.0')
-    implementation('io.coil-kt:coil-gif:2.4.0')
-    implementation('io.coil-kt:coil-svg:2.4.0')
-    implementation('io.coil-kt:coil-video:2.4.0')
+    implementation('io.coil-kt:coil:2.5.0')
+    implementation('io.coil-kt:coil-compose:2.5.0')
+    implementation('io.coil-kt:coil-base:2.5.0')
+    implementation('io.coil-kt:coil-gif:2.5.0')
+    implementation('io.coil-kt:coil-svg:2.5.0')
+    implementation('io.coil-kt:coil-video:2.5.0')
     implementation 'com.google.android.material:material:1.10.0'
 
 }
