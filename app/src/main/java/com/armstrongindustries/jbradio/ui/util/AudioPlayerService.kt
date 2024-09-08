@@ -1,4 +1,4 @@
-package com.jeremiahboothe.jbradio.ui.util
+package com.armstrongindustries.jbradio.ui.util
 
 import android.app.Notification
 import android.app.PendingIntent
@@ -19,9 +19,10 @@ import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
 import androidx.media3.ui.PlayerNotificationManager
 import androidx.media3.ui.PlayerView
-import com.jeremiahboothe.jbradio.metadata.MyVariables
-import com.jeremiahboothe.jbradio.ui.MainActivity
-import com.jeremiahboothe.jbradio.R
+import com.armstrongindustries.jbradio.ui.MainActivity
+import com.armstrongindustries.jbradio.R
+import com.armstrongindustries.jbradio.metadata.MyVariables
+
 
 @UnstableApi
 class AudioPlayerService : MediaLibraryService(), Player.Listener {
@@ -55,7 +56,7 @@ class AudioPlayerService : MediaLibraryService(), Player.Listener {
                 notificationId: Int,
                 dismissedByUser: Boolean
             ) {
-                                //JB added System.exit and onDestroy to terminate app properly not quite working
+                //JB added System.exit and onDestroy to terminate app properly not quite working
                 //does change the way it terminates in a somewhat favorable way but creates
                 //new app and restarts it.  doesn't fully terminate.  Getting close
                 stopSelf()
@@ -160,7 +161,7 @@ class AudioPlayerService : MediaLibraryService(), Player.Listener {
             this,
             Constants.PLAYBACK_NOTIFICATION_ID,
             Constants.PLAYBACK_CHANNEL_ID
-            )
+        )
             .setChannelNameResourceId(R.string.playback_channel_name)
             .setChannelDescriptionResourceId(R.string.playback_channel_description)
             .setMediaDescriptionAdapter(object : PlayerNotificationManager.MediaDescriptionAdapter {
@@ -169,11 +170,11 @@ class AudioPlayerService : MediaLibraryService(), Player.Listener {
                     val intent = Intent(context, MainActivity::class.java)
                     return PendingIntent
                         .getActivity(
-                        context,
-                       0,
-                        intent,
-                        PendingIntent.FLAG_MUTABLE
-                    )
+                            context,
+                            0,
+                            intent,
+                            PendingIntent.FLAG_MUTABLE
+                        )
                 }
 
                 override fun getCurrentContentText(player: Player): CharSequence {

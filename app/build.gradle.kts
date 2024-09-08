@@ -8,12 +8,12 @@ var compose_version = "1.5.3"
 var media3_version = "1.4.1"
 
 android {
-    namespace = "com.jeremiahboothe.jbradio"
+    namespace = "com.armstrongindustries.jbradio"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.jeremiahboothe.jbradio"
-        minSdk = 28
+        applicationId = "com.armstrongindustries.jbradio"
+        minSdk = 30
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"

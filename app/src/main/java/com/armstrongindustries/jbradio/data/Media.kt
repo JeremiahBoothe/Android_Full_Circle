@@ -1,4 +1,4 @@
-package com.jeremiahboothe.jbradio.data
+package com.armstrongindustries.jbradio.data
 
 import android.net.Uri
 

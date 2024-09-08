@@ -1,4 +1,4 @@
-package com.jeremiahboothe.jbradio
+package com.armstrongindustries.jbradio
 
 import org.junit.Test
 

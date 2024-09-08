@@ -1,4 +1,4 @@
-package com.jeremiahboothe.jbradio.ui
+package com.armstrongindustries.jbradio.ui
 
 import android.content.ComponentName
 import android.content.Context
@@ -18,9 +18,9 @@ import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.GsonBuilder
-import com.jeremiahboothe.jbradio.databinding.ActivityMainBinding
-import com.jeremiahboothe.jbradio.metadata.APIService
-import com.jeremiahboothe.jbradio.ui.util.AudioPlayerService
+import com.armstrongindustries.jbradio.databinding.ActivityMainBinding
+import com.armstrongindustries.jbradio.metadata.APIService
+import com.armstrongindustries.jbradio.ui.util.AudioPlayerService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -141,7 +141,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
                                     })
                                 // setup error image
-                               // error(R.drawable.sle_radio)
+                                // error(R.drawable.sle_radio)
                                 //placeholder(R.drawable.sle_radio)
                                 transformations(
                                     CircleCropTransformation()
@@ -158,13 +158,13 @@ import retrofit2.converter.gson.GsonConverterFactory
                             binding.basicAudioPlayerWithNotificationTextViewImageView.load("https://radiojar-lib.appspot.com/get_media_image?size=orig&guid=f8eef4b4-c480-11eb-acff-fa163eb018f7")
                         }*/
 
-                   /* //not coil
-                    serviceBinder.getIconLiveData()
-                        .observe(this@MainActivity) {
-                            binding.thumbImageView.setImageDrawable(
-                                ContextCompat.getDrawable(this@MainActivity, it)
-                            )
-                        }*/
+                    /* //not coil
+                     serviceBinder.getIconLiveData()
+                         .observe(this@MainActivity) {
+                             binding.thumbImageView.setImageDrawable(
+                                 ContextCompat.getDrawable(this@MainActivity, it)
+                             )
+                         }*/
                 }
             }
         }
@@ -249,5 +249,4 @@ import retrofit2.converter.gson.GsonConverterFactory
         }
     }
 }
-
 

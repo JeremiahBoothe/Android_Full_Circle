@@ -1,12 +1,12 @@
-package com.jeremiahboothe.jbradio.ui.util
+package com.armstrongindustries.jbradio.ui.util
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import androidx.annotation.DrawableRes
-import com.jeremiahboothe.jbradio.R
-import com.jeremiahboothe.jbradio.data.Media
+import com.armstrongindustries.jbradio.R
+import com.armstrongindustries.jbradio.data.Media
 
 object Constants {
 

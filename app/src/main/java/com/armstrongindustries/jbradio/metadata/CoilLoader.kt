@@ -1,4 +1,4 @@
-package com.jeremiahboothe.jbradio.metadata
+package com.armstrongindustries.jbradio.metadata
 
 //variable holding the coil image.
 object MyVariables{
