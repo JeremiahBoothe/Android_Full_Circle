@@ -1,11 +1,23 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    //id("org.owasp.dependencycheck") version "10.0.4"
+    id("org.openapi.generator") version "7.0.1"
 }
 
-var kotlinVersion = "2.0.20"
-var compose_version = "1.5.3"
-var media3_version = "1.4.1"
+openApiGenerate {
+    inputSpec.set("$rootDir/openapi/sleradio.yml")
+    generatorName.set("kotlin")
+    library.set("jvm-retrofit2")
+}
+
+//sourceSets {
+//    getByName("main") {
+//            java {
+//                srcDir("$rootDir/build/generate-resources/main/src")
+//        }
+//    }
+//}
 
 android {
     namespace = "com.armstrongindustries.jbradio"
