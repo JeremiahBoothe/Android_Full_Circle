@@ -3,8 +3,10 @@ package com.armstrongindustries.jbradio.ui.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import androidx.appcompat.graphics.drawable.*
 import android.net.Uri
 import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat
 import com.armstrongindustries.jbradio.R
 import com.armstrongindustries.jbradio.data.Media
 
@@ -79,6 +81,7 @@ object Constants {
     }
 
     fun getBitmap(context: Context, @DrawableRes bitmapResource: Int): Bitmap? {
-        return (context.getResources().getDrawable(bitmapResource) as BitmapDrawable).bitmap
+        val drawable = ResourcesCompat.getDrawable(context.resources, bitmapResource, null)
+        return (drawable as? BitmapDrawable)?.bitmap
     }
 }

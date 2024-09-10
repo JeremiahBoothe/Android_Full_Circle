@@ -1,5 +1,5 @@
 [versions]
-agp = "8.6.0"
+agp = "8.5.2"
 coil = "2.7.0"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
@@ -12,7 +12,7 @@ activity = "1.9.2"
 constraintlayout = "2.1.4"
 media3Exoplayer = "1.4.1"
 retrofit = "2.11.0"
-runtimeAndroid = "1.7.0"
+runtimeAndroid = "1.7.1"
 media3Session = "1.4.1"
 media3Ui = "1.4.1"
 uiAndroid = "1.7.0"
@@ -33,7 +33,7 @@ androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 androidx-media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "media3Session" }
 androidx-media3-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "media3Ui" }
-androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", version.ref = "uiAndroid" }
+androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", version = "1.7.1" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
