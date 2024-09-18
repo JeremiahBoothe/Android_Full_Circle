@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
     //id("org.owasp.dependencycheck") version "10.0.4"
     id("org.openapi.generator") version "7.0.1"
 }
