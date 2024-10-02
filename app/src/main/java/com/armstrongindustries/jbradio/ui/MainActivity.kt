@@ -29,8 +29,8 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
-@UnstableApi class MainActivity : AppCompatActivity() {
+@UnstableApi
+class MainActivity : AppCompatActivity() {
 
     private lateinit var intentService: Intent
     private lateinit var serviceBinder: AudioPlayerService.AudioPlayerServiceBinder

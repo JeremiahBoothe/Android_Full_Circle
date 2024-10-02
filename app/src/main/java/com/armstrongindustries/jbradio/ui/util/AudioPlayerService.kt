@@ -74,7 +74,7 @@ class AudioPlayerService : MediaLibraryService(), Player.Listener {
                 if (ongoing) {
                     startForeground(notificationId, notification)
                 } else {
-                    stopForeground(false)
+                    stopForeground(STOP_FOREGROUND_DETACH)
                 }
             }
         }

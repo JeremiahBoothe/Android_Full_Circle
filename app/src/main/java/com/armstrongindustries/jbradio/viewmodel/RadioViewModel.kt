@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class RadioViewModel: ViewModel() {
-
     override fun onCleared() {
         super.onCleared()
     }
