@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">JBRadio</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
     <string name="title_player_lib">player-lib</string>
     <string name="basic_audio_player">Basic Audio Player</string>
     <string name="handling_basic_audio_player">Handling Basic Audio Player</string>
@@ -10,6 +13,6 @@
     <string name="basic_audio_player_with_progressive_media_source">Basic Audio Player with Progressive Media Source</string>
     <string name="basic_audio_player_with_playlist">Basic Audio Player with Playlist</string>
     <string name="basic_audio_player_with_clip_loop_merge">Basic Audio Player with Clip Loop and Merge</string>
-    <string name="playback_channel_name">Playback</string>
-    <string name="playback_channel_description">Playback Description</string>
+    <string name="playback_channel_name">JBRadioPlayback</string>
+    <string name="playback_channel_description">A Media Player App for Indie artists and stations.</string>
 </resources>
