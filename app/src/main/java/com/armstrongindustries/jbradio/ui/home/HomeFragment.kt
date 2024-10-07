@@ -9,6 +9,7 @@ import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -88,6 +89,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
         setupViewModelObservers()
+
     }
 
     /**
@@ -102,6 +104,11 @@ class HomeFragment : Fragment() {
         intentService = Intent(requireContext(), AudioPlayerService::class.java)
 
         Util.startForegroundService(requireContext(), intentService)
+
+        val textView: TextView = binding.basicAudioPlayerArtistNameView
+        viewModel.artist.observe(viewLifecycleOwner) {
+            textView.text = it
+        }
     }
 
     override fun onStart() {
