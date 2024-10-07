@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
+    id("kotlin-parcelize")
+    id("org.jetbrains.kotlin.kapt")
+    id("com.google.devtools.ksp") version "2.0.20-1.0.25" // Add KSP plugin with the appropriate version
     //id("org.owasp.dependencycheck") version "10.0.4"
     id("org.openapi.generator") version "7.0.1"
 }
@@ -54,6 +56,11 @@ android {
         dataBinding = true
         viewBinding = true
     }
+
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
 }
 
 dependencies {
@@ -70,7 +77,9 @@ dependencies {
     implementation(libs.androidx.media3.session)
     implementation(libs.androidx.media3.ui)
     implementation(libs.androidx.ui.android)
-    testImplementation(libs.junit)
+    //testImplementation(libs.kotest.runner.junit5)
+    //testImplementation(libs.androidx.junit)
+    //androidTestImplementation(libs.kotest.runner.junit5)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
