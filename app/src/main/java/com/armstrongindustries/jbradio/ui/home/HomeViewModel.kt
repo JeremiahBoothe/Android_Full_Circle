@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.armstrongindustries.jbradio.data.Repository
-import com.armstrongindustries.jbradio.ui.metadata.APIService
+import com.armstrongindustries.jbradio.data.ApiDao
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * @see LiveData
  * @see Retrofit
  * @see GsonConverterFactory
- * @see APIService
+ * @see ApiDao
  * @see HomeViewModel
  * @see viewModelScope
  */

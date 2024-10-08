@@ -7,13 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.armstrongindustries.jbradio.data.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-class ActivityViewModel(application: Application) : AndroidViewModel(application) {
+class MyAppViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = Repository.getInstance(application)
-
+    private val repository: Repository = Repository.getInstance(application)
     val id: LiveData<Int> = repository.id
     val artist: LiveData<String> = repository.artist
     val title: LiveData<String> = repository.title
@@ -22,7 +20,6 @@ class ActivityViewModel(application: Application) : AndroidViewModel(application
 
     companion object {
         private const val FETCH_DELAY_MS = 5000L
-        private const val MAX_DELAY_MS = 60000L // 1 minute
     }
 
     init {
@@ -34,16 +31,14 @@ class ActivityViewModel(application: Application) : AndroidViewModel(application
      */
     private fun startFetchingData() {
         viewModelScope.launch(Dispatchers.IO) {
-            var currentDelay = FETCH_DELAY_MS
-            while (isActive) {
+            while (true) {
                 try {
                     repository.fetchCurrentSong()
-                    currentDelay = FETCH_DELAY_MS // Reset delay after successful fetch
                 } catch (e: Exception) {
+                    // Log the error or handle it in a way that doesn't crash the app
                     e.printStackTrace()
-                    currentDelay = (currentDelay * 2).coerceAtMost(MAX_DELAY_MS)
                 }
-                delay(currentDelay)
+                delay(FETCH_DELAY_MS) // Fetch data every 5 seconds
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.armstrongindustries.jbradio.ui.service
+package com.armstrongindustries.jbradio.service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -9,13 +9,15 @@ import android.content.Intent
 import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
 import com.armstrongindustries.jbradio.R
+import com.armstrongindustries.jbradio.data.Constants
+import com.armstrongindustries.jbradio.data.Repository
 
 /**
  * Class responsible for managing the playback notification.
  * @param service the AudioPlayerService instance.
  * @author Jeremiah Boothe
  * @date 06/24/2024
- * @see AudioPlayerService
+ * @see com.armstrongindustries.jbradio.service.AudioPlayerService
  * @see Notification
  * @see NotificationManager
  * @see NotificationChannel
@@ -23,6 +25,7 @@ import com.armstrongindustries.jbradio.R
  */
 class MediaNotification(private val service: AudioPlayerService) {
 
+    val repository: Repository = Repository.getInstance(service.application)
     fun createNotificationChannel() {
         val notificationManager = service.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channelId = Constants.PLAYBACK_CHANNEL_ID

@@ -1,13 +1,9 @@
-package com.armstrongindustries.jbradio.ui
+package com.armstrongindustries.jbradio.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-// Node class representing each element in the linked list
-data class Node<T>(var value: T, var next: Node<T>? = null)
-
-// ViewModel to hold the LinkedList logic
 class LinkedListViewModel<T> : ViewModel() {
     private var head: Node<T>? = null
     private var size = 0

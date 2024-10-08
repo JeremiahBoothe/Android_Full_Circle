@@ -8,7 +8,7 @@ data class RadioMetaData(
         @SerializedName("type")
         val type: String,
         @SerializedName("artist")
-        val artist: Artist,
+        val artistData: ArtistData,
         @SerializedName("title")
         val title: String,
         @SerializedName("album")
@@ -30,7 +30,4 @@ data class RadioMetaData(
         val ends_at: String
 )
 
-data class Artist(
-        @SerializedName("name")
-        val name: String
-)
+

@@ -1,4 +1,4 @@
-package com.armstrongindustries.jbradio.ui.service
+package com.armstrongindustries.jbradio.service
 
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -20,7 +20,9 @@ import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.session.MediaController
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
-import com.armstrongindustries.jbradio.ui.metadata.MyVariables
+import com.armstrongindustries.jbradio.data.Constants
+import com.armstrongindustries.jbradio.data.Repository
+import com.google.android.material.R
 import com.google.common.util.concurrent.ListenableFuture
 
 /**
@@ -29,7 +31,7 @@ import com.google.common.util.concurrent.ListenableFuture
 class AudioPlayerService : MediaSessionService(),
     Player.Listener,
     MediaController.Listener {
-
+    private lateinit var repository: Repository
     private var exoPlayer: ExoPlayer? = null
 
     private val idMetaData = MutableLiveData<Int>()
@@ -44,6 +46,7 @@ class AudioPlayerService : MediaSessionService(),
 
     override fun onCreate() {
         super.onCreate()
+        repository = Repository.getInstance(application)
         mediaNotification = MediaNotification(this)
         if (isNotificationPermissionGranted()) {
             mediaNotification.createNotificationChannel()
@@ -55,7 +58,7 @@ class AudioPlayerService : MediaSessionService(),
         mediaNotification.updateNotification(
             songTitleLiveData.value,
             artistMetaData.value,
-            binder.getIdLiveData().value
+            idMetaData.value
         )
     }
 
@@ -71,12 +74,13 @@ class AudioPlayerService : MediaSessionService(),
         return notificationManager.areNotificationsEnabled()
     }
 
+
     @OptIn(UnstableApi::class)
     private fun initializeExoPlayer() {
         exoPlayer = ExoPlayer.Builder(this).build().apply {
             setHandleAudioBecomingNoisy(true)
             setWakeMode(C.WAKE_MODE_NETWORK)
-            setTheme(com.google.android.material.R.style.Theme_Material3_Dark)
+            setTheme(R.style.Theme_Material3_Dark)
             setForegroundMode(true)
             addListener(this@AudioPlayerService)
             setMediaSource(buildMediaSource())
@@ -86,14 +90,14 @@ class AudioPlayerService : MediaSessionService(),
                     .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
                     .setUsage(C.USAGE_MEDIA)
                     .build(),
-                    true
+                true
             )
             prepare()
             playWhenReady = true
         }
         exoPlayer.let {
             theme.applyStyle(android.R.style.Theme_Material, true)
-         }
+        }
     }
 
     @OptIn(UnstableApi::class)
@@ -179,7 +183,7 @@ class AudioPlayerService : MediaSessionService(),
             .setArtist(artistMetaData.value)
             .setAlbumArtist("SLE Album Artist")
             .setIsPlayable(true)
-            .setArtworkUri(Constants.uriParser(MyVariables.stringAlbum))
+            .setArtworkUri(Constants.uriParser(Constants.STRING_ALBUM))
             .setExtras(null)
             .build()
     }

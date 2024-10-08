@@ -1,4 +1,4 @@
-package com.armstrongindustries.jbradio.ui.service
+package com.armstrongindustries.jbradio.data
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,7 +12,10 @@ import androidx.annotation.DrawableRes
 
 object Constants {
 
-    // Media URLs
+    const val BASE_URL = "https://api.laut.fm/"
+    const val STRING_ALBUM = "https://assets.laut.fm/5140d46b992d1e3772baf4b4000b276f"
+    const val ACTION_PLAY = "com.armstrongindustries.jbradio.ACTION_PLAY"
+    const val ACTION_PAUSE = "com.armstrongindustries.jbradio.ACTION_PAUSE"
     const val MP3_URL = "https://radiotsc.stream.laut.fm/radiotfsc"
     // ... other media URLs ...
 

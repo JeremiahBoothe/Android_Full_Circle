@@ -22,7 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.armstrongindustries.jbradio.databinding.ActivityMainBinding
-import com.armstrongindustries.jbradio.ui.service.AudioPlayerService
+import com.armstrongindustries.jbradio.service.AudioPlayerService
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var intentService: Intent
     private var serviceBinder: AudioPlayerService.AudioPlayerServiceBinder? = null
-
     private var isServiceBound = false
+
     private val requestNotificationPermissionLauncher: ActivityResultLauncher<String> =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
@@ -61,10 +61,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         intentService = Intent(this, AudioPlayerService::class.java)
 
-        setupViewModelObservers()
+
         playerControlView = findViewById(R.id.player_control_view)
         playerControlView.showTimeoutMs = 0
-
+        setupViewModelObservers()
 
         requestNotificationPermission()
     }

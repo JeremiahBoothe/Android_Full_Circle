@@ -11,13 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
 import com.armstrongindustries.jbradio.ActivityViewModel
 import com.armstrongindustries.jbradio.databinding.FragmentHomeBinding
-import com.armstrongindustries.jbradio.ui.service.AudioPlayerService
+import com.armstrongindustries.jbradio.service.AudioPlayerService
 
 /**
  * @author Jeremiah Boothe
@@ -34,6 +35,8 @@ import com.armstrongindustries.jbradio.ui.service.AudioPlayerService
  */
 @UnstableApi
 class HomeFragment : Fragment() {
+    private val sharedViewModel: ActivityViewModel by activityViewModels()
+
     private val _idLiveData = MutableLiveData<Int>()
     private val _artistLiveData = MutableLiveData<String>()
     private val _titleLiveData = MutableLiveData<String>()
@@ -58,6 +61,7 @@ class HomeFragment : Fragment() {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             if (service is AudioPlayerService.AudioPlayerServiceBinder) {
                 serviceBinder = service
+                setupViewModelObservers()
                 binding.basicAudioPlayerWithNotificationPlayerView.player = serviceBinder.getExoPlayerInstance()
             }
         }
@@ -67,13 +71,13 @@ class HomeFragment : Fragment() {
         }
     }
     private fun setupViewModelObservers() {
-        val homeViewModel = ViewModelProvider(this@HomeFragment)[ActivityViewModel::class.java]
+        //val homeViewModel = ViewModelProvider(this@HomeFragment)[ActivityViewModel::class.java]
 
-        homeViewModel.id.observe(viewLifecycleOwner) { _idLiveData.value = it }
-        homeViewModel.artist.observe(viewLifecycleOwner) { _artistLiveData.value = it }
-        homeViewModel.title.observe(viewLifecycleOwner) { _titleLiveData.value = it }
-        homeViewModel.album.observe(viewLifecycleOwner) { _albumTitleLiveData.value = it }
-        homeViewModel.artwork.observe(viewLifecycleOwner) { _artworkLiveData.value = it }
+        sharedViewModel.id.observe(viewLifecycleOwner) { _idLiveData.value = it }
+        sharedViewModel.artist.observe(viewLifecycleOwner) { _artistLiveData.value = it }
+        sharedViewModel.title.observe(viewLifecycleOwner) { _titleLiveData.value = it }
+        sharedViewModel.album.observe(viewLifecycleOwner) { _albumTitleLiveData.value = it }
+        sharedViewModel.artwork.observe(viewLifecycleOwner) { _artworkLiveData.value = it }
 
     }
     /**
@@ -89,7 +93,6 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
         setupViewModelObservers()
-
     }
 
     /**
