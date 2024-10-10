@@ -21,7 +21,7 @@ import androidx.media3.session.MediaController
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
 import com.armstrongindustries.jbradio.data.Constants
-import com.armstrongindustries.jbradio.data.Repository
+import com.armstrongindustries.jbradio.repository.Repository
 import com.google.android.material.R
 import com.google.common.util.concurrent.ListenableFuture
 

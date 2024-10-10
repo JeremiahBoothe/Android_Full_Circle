@@ -7,7 +7,9 @@ plugins {
     id("com.google.devtools.ksp") version "2.0.20-1.0.25" // Add KSP plugin with the appropriate version
     id("org.owasp.dependencycheck") version "10.0.4"
 }
-
+ksp {
+    arg("ksp.incremental", "true") // Ensure incremental processing is enabled
+}
 openApiGenerate {
     inputSpec.set("$rootDir/openapi/sleradio.yml")
     generatorName.set("kotlin")
@@ -17,12 +19,12 @@ openApiGenerate {
 android {
     namespace = "com.armstrongindustries.jbradio"
     testNamespace = "com.armstrongindustries.mytestapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.armstrongindustries.jbradio"
         minSdk = 33
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -102,8 +104,11 @@ dependencies {
     implementation(libs.androidx.ui.android)
     implementation(libs.cronet.embedded)
     implementation(libs.androidx.room.common)
-
-
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.paging)
+    implementation(libs.androidx.work.runtime.ktx)
     /**
      * JUnit 5 & Testing Dependencies
      */

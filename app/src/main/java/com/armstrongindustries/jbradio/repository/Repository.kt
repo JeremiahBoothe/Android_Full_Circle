@@ -1,6 +1,4 @@
-// File: com/example/myapplication/data/Repository.kt
-
-package com.armstrongindustries.jbradio.data
+package com.armstrongindustries.jbradio.repository
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -19,6 +17,8 @@ import androidx.lifecycle.MutableLiveData
 import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.request.SuccessResult
+import com.armstrongindustries.jbradio.data.ApiDao
+import com.armstrongindustries.jbradio.data.Constants
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -42,10 +42,11 @@ class Repository private constructor(private val application: Application) {
     private val _artwork = MutableLiveData<String>()
     val artwork: LiveData<String> get() = _artwork
 
-
-
     private val _imageBitmap = MutableLiveData<Bitmap?>()
     val imageBitmap: LiveData<Bitmap?> get() = _imageBitmap
+
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> get() = _error
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)
@@ -92,12 +93,13 @@ class Repository private constructor(private val application: Application) {
             if (response.isSuccessful) {
                 val body = response.body()
                 _id.postValue(body?.id ?: INT_ERROR_VALUE)
-                _artist.postValue(body?.artistData?.name ?: DEFAULT_VALUE)
+                _artist.postValue(body?.artist?.name ?: DEFAULT_VALUE)
                 _title.postValue(body?.title ?: DEFAULT_VALUE)
                 _album.postValue(body?.album ?: DEFAULT_VALUE)
                 _artwork.postValue(body?.artwork ?: DEFAULT_ARTWORK)
             } else {
-                handleError("HTTP error: ${response.code()}")
+                val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                handleError("HTTP error: ${response.code()}, $errorMessage")
             }
         } catch (e: IOException) {
             handleError("Network error: ${e.message}")
@@ -106,8 +108,8 @@ class Repository private constructor(private val application: Application) {
         }
     }
 
-    suspend fun loadImage(url: String): Drawable? {
-        try {
+    suspend fun loadImage(url: String): Bitmap? {
+        return try {
             val imageLoader = ImageLoader(application)
             val request = ImageRequest.Builder(application)
                 .data(url)
@@ -117,25 +119,20 @@ class Repository private constructor(private val application: Application) {
             if (result is SuccessResult) {
                 val bitmap: Drawable = result.drawable
                 _imageBitmap.postValue(bitmap.toBitmap())
+                bitmap.toBitmap()
+            } else {
+                null
             }
         } catch (e: Exception) {
             Log.e("Repository", "Image loading error: ${e.message}")
+            null
         }
-        return _imageBitmap as Drawable?
     }
-    /**
-     * Converts a URL string to a Uri object.
-     */
+
     fun uriParser(url: String): Uri {
         return Uri.parse(url)
     }
 
-    /**
-     * Converts a drawable resource to a Bitmap object.
-     * @param context the context used to access resources.
-     * @param drawableId the drawable resource ID.
-     * @return the Bitmap representation of the drawable, or null if it cannot be converted.
-     */
     @SuppressLint("UseCompatLoadingForDrawables")
     fun getBitmap(context: Context, @DrawableRes drawableId: Int): Bitmap? {
         val drawable: Drawable? = context.getDrawable(drawableId)
@@ -153,7 +150,9 @@ class Repository private constructor(private val application: Application) {
             }
         }
     }
+
     private fun handleError(message: String) {
+        _error.postValue(message)
         _id.postValue(INT_ERROR_VALUE)
         _artist.postValue(ERROR_VALUE)
         _title.postValue(ERROR_VALUE)

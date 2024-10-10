@@ -3,7 +3,7 @@ package com.armstrongindustries.jbradio.ui.notifications
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.armstrongindustries.jbradio.data.Repository
+import com.armstrongindustries.jbradio.repository.Repository
 
 class NotificationsViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = Repository.getInstance(application)

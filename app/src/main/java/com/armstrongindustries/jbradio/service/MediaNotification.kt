@@ -10,7 +10,7 @@ import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
 import com.armstrongindustries.jbradio.R
 import com.armstrongindustries.jbradio.data.Constants
-import com.armstrongindustries.jbradio.data.Repository
+import com.armstrongindustries.jbradio.repository.Repository
 
 /**
  * Class responsible for managing the playback notification.

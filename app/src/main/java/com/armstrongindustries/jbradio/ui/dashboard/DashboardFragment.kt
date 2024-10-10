@@ -26,7 +26,7 @@ class DashboardFragment : Fragment() {
         val root: View = binding.root
         val textView: TextView = binding.textDashboard
 
-        dashboardViewModel.text.observe(viewLifecycleOwner) { text ->
+        dashboardViewModel.artist.observe(viewLifecycleOwner) { text ->
             textView.text = text
         }
 

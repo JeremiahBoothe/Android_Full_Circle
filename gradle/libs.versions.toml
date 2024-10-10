@@ -2,12 +2,9 @@
 agp = "8.7.0"
 bcprovJdk18on = "1.78.1"
 coil = "2.7.0"
-converterGson = "2.9.0"
 gsonVersion = "2.11.0"
-kotestProperty = "5.9.1"
 kotlin = "2.0.20"
 coreKtx = "1.13.1"
-junit = "5.8.1"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
@@ -29,22 +26,23 @@ cronetEmbedded = "119.6045.31"
 junitJupiter = "5.11.2"
 roomCommon = "2.6.1"
 junitKtx = "1.2.1"
-junitJupiterVersion = "5.11.1"
+workRuntimeKtx = "2.9.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-media3-common = { module = "androidx.media3:media3-common", version.ref = "media3CommonKtx" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCommon" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCommon" }
+androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomCommon" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCommon" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 bcprov-jdk18on = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bcprovJdk18on" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofitVersion" }
 google-gson = { module = "com.google.code.gson:gson", version.ref = "gsonVersion" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotestProperty" }
-kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotestProperty" }
-kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotestProperty" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
