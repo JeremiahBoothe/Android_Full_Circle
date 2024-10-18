@@ -13,10 +13,15 @@ import com.armstrongindustries.jbradio.data.Constants
 import com.armstrongindustries.jbradio.repository.Repository
 
 /**
- * Class responsible for managing the playback notification.
- * @param service the AudioPlayerService instance.
  * @author Jeremiah Boothe
  * @date 06/24/2024
+ * @version 1.0
+ * Class responsible for managing the playback notification.
+ * @property service the AudioPlayerService instance.
+ * @property repository the Repository instance.
+ * @property createNotificationChannel creates the notification channel.
+ * @property updateNotification updates the notification.
+ * @property createPendingIntent creates a pending intent.
  * @see com.armstrongindustries.jbradio.service.AudioPlayerService
  * @see Notification
  * @see NotificationManager
@@ -46,7 +51,7 @@ class MediaNotification(private val service: AudioPlayerService) {
         songDescription: String?,
         songIcon: Int?,
     ) {
-        val mediaSessionToken = service.mediaSession.platformToken
+        val mediaSessionToken = service.getMediaSession().platformToken
         val notification = Notification.Builder(service, Constants.PLAYBACK_CHANNEL_ID)
             .setContentTitle(songTitle ?: "Unknown Title")
             .setContentText(songDescription ?: "Unknown Description")

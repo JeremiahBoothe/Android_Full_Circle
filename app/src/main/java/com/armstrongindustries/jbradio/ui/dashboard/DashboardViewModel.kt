@@ -20,6 +20,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
+/**
+ * This class is a ViewModel for the DashboardFragment.
+ * @property application The application context.
+ * @property repository The repository for managing data.
+ * @property repository2 The repository for managing data.
+ * @property id The ID of the item.
+ * @property artist The artist of the item.
+ * @property title The title of the item.
+ * @property album The album of the item.
+ */
 class DashboardViewModel(application: Application) : AndroidViewModel(application) {
     private val repository2 = Repository.getInstance(application)
     private val repository: RadioRepository = RadioRepository(application)

@@ -7,19 +7,20 @@ package com.armstrongindustries.jbradio
 
 import android.app.Application
 import android.util.Log
+import androidx.room.Room
+import com.armstrongindustries.jbradio.data.ArtistNameData
+import com.armstrongindustries.jbradio.data.RadioMetaData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MyApplication : Application() {
+
+
+
     override fun onCreate() {
         super.onCreate()
-        initializeDatabase()
+
     }
 
-    private fun initializeDatabase() {
-        try {
-            AppDatabase.getDatabase(this)
-            Log.d("MyApplication", "Database initialized successfully.")
-        } catch (e: Exception) {
-            Log.e("MyApplication", "Error initializing database", e)
-        }
-    }
 }

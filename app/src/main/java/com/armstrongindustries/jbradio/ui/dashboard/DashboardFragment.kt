@@ -9,6 +9,30 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.armstrongindustries.jbradio.databinding.FragmentDashboardBinding
 
+/**
+ * @author Jeremiah Boothe
+ * @date 06/24/2024
+ * @version 1.0
+ * @see Fragment
+ * @see DashboardViewModel
+ * @see FragmentDashboardBinding
+ * @see TextView
+ * @see LayoutInflater
+ * @see ViewGroup
+ * @see Bundle
+ * @see View
+ * @see onCreateView
+ * @see onDestroyView
+ * @see ViewModelProvider
+ * @see ViewModelProvider.Factory
+ * @see DashboardViewModel
+ * @see DashboardViewModel.artist
+ * @see DashboardViewModel.artist.observe
+ * @param
+ * @property _binding
+ * @property binding
+ * @property dashboardViewModel
+ */
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null

@@ -23,15 +23,18 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.armstrongindustries.jbradio.databinding.ActivityMainBinding
 import com.armstrongindustries.jbradio.service.AudioPlayerService
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
- * Entry point for the application, managing UI interactions and service binding.
+ * Entry point for the application, initializing the database to support app functionality.
  * @author Jeremiah Boothe
  * @date 10/06/2024
+ * @param
  */
 @UnstableApi
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var playerControlView: PlayerControlView
     private lateinit var binding: ActivityMainBinding
     private lateinit var intentService: Intent
     private var serviceBinder: AudioPlayerService.AudioPlayerServiceBinder? = null
@@ -42,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             if (isGranted) {
                 startServiceAndBind()
             } else {
-                showToast("Notification permission is required for full functionality")
+                Toast.makeText(this, "Notification permission is required for full functionality", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -58,13 +61,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         intentService = Intent(this, AudioPlayerService::class.java)
 
-        setupPlayerControlView()
-        setupViewModelObservers()
-        requestNotificationPermission()
-    }
 
-    private fun setupPlayerControlView() {
-        findViewById<PlayerControlView>(R.id.player_control_view).showTimeoutMs = 0
+        playerControlView = findViewById(R.id.player_control_view)
+        playerControlView.showTimeoutMs = 0
+        setupViewModelObservers()
+
+        requestNotificationPermission()
     }
 
     private fun requestNotificationPermission() {
@@ -84,53 +86,53 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewModelObservers() {
-        val activityViewModel = ViewModelProvider(this)[ActivityViewModel::class.java]
-        observeLiveData(activityViewModel.id, _idLiveData)
-        observeLiveData(activityViewModel.artist, _artistLiveData)
-        observeLiveData(activityViewModel.title, _titleLiveData)
-        observeLiveData(activityViewModel.album, _albumTitleLiveData)
-        observeLiveData(activityViewModel.artwork, _artworkLiveData)
-    }
+        val activityViewModel = ViewModelProvider(this@MainActivity)[ActivityViewModel::class.java]
 
-    private fun <T> observeLiveData(source: LiveData<T>, target: MutableLiveData<T>) {
-        source.observe(this) { value -> target.postValue(value) }
-    }
-
-    private val serviceConnector = object : ServiceConnection {
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            if (service is AudioPlayerService.AudioPlayerServiceBinder) {
-                serviceBinder = service
-                bindServiceLiveData()
-                setupNavigation()
-            }
-        }
-
-        override fun onServiceDisconnected(name: ComponentName?) {
-            serviceBinder = null
-            showToast("Audio player service disconnected")
-        }
-    }
-
-    private fun bindServiceLiveData() {
-        serviceBinder?.let { binder ->
-            observeLiveData(binder.getArtistMetaData(), _artistLiveData)
-            observeLiveData(binder.getTitleLiveData(), _titleLiveData)
-            observeLiveData(binder.getAlbumTitleMetaData(), _albumTitleLiveData)
-            observeLiveData(binder.getArtworkMetaData(), _artworkLiveData)
-        }
+        activityViewModel.id.observe(this@MainActivity) { _idLiveData.value = it }
+        activityViewModel.artist.observe(this@MainActivity) { _artistLiveData.value = it }
+        activityViewModel.title.observe(this@MainActivity) { _titleLiveData.value = it }
+        activityViewModel.album.observe(this@MainActivity) { _albumTitleLiveData.value = it }
+        activityViewModel.artwork.observe(this@MainActivity) { _artworkLiveData.value = it }
     }
 
     private fun setupNavigation() {
+        val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
         )
+
+        serviceBinder?.getExoPlayerInstance()?.let {
+            playerControlView.player = it
+        }
+
         setupActionBarWithNavController(navController, appBarConfiguration)
-        binding.navView.setupWithNavController(navController)
+        navView.setupWithNavController(navController)
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun observeServiceLiveData(liveData: LiveData<String>, targetLiveData: MutableLiveData<String>) {
+        liveData.observe(this) { value -> targetLiveData.postValue(value) }
+    }
+
+    private val serviceConnector = object : ServiceConnection {
+        override fun onServiceDisconnected(name: ComponentName?) {
+            serviceBinder = null
+        }
+
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            if (service is AudioPlayerService.AudioPlayerServiceBinder) {
+                serviceBinder = service
+
+                serviceBinder?.apply {
+                    observeServiceLiveData(getArtistMetaData(), _artistLiveData)
+                    observeServiceLiveData(getTitleLiveData(), _titleLiveData)
+                    observeServiceLiveData(getAlbumTitleMetaData(), _albumTitleLiveData)
+                    observeServiceLiveData(getArtworkMetaData(), _artworkLiveData)
+                }
+
+                setupNavigation()
+            }
+        }
     }
 
     override fun onStart() {
@@ -151,10 +153,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (isServiceBound) {
-            unbindService(serviceConnector)
-            isServiceBound = false
-        }
         stopService(intentService)
     }
 }

@@ -4,8 +4,12 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
+/**
+ * Data class representing the radio metadata.
+ * @param artistName The name of the current artist.
+ */
 @Parcelize
-data class ArtistData(
+data class ArtistNameData(
     @SerializedName("name")
-    val name: String
+    val artistName: String
 ) : Parcelable

@@ -10,6 +10,9 @@ import android.graphics.drawable.VectorDrawable
 import android.net.Uri
 import androidx.annotation.DrawableRes
 
+/**
+ * Constants used throughout the app.
+ */
 object Constants {
 
     const val BASE_URL = "https://api.laut.fm/"

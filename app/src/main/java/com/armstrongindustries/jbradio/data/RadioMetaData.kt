@@ -15,45 +15,61 @@ import java.net.URL
 
 /**
  * Data class representing metadata for a radio station.
+ * @param id The unique identifier for the radio metadata.
+ * @param type The type of the radio metadata.
+ * @param artist The name of the artist.
+ * @param title The title of the song.
+ * @param album The name of the album.
+ * @param artwork The URL or file path of the artwork image.
+ * @param length The length of the song in seconds.
+ * @param genre The genre of the song.
+ * @param releaseyear The year the song was released.
+ * @param createdAt The date and time when the metadata was created.
+ * @param startedAt The date and time when the song started playing.
+ * @param endsAt The date and time when the song ended.
+ * @property getImageDrawable Loads the artwork image as a Drawable from a URL or a file path.
+ * @property equals Compares two RadioMetaData objects for equality.
+ * @property hashCode Computes a hash code for the RadioMetaData object.
+ * @return A Drawable representation of the artwork, or null if the artwork is not available.
  */
 @Parcelize
 @Entity(tableName = "radio_metadata")
 data class RadioMetaData(
-        @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = false)
         @SerializedName("id")
         val id: Int,
 
-        @SerializedName("type")
+    @SerializedName("type")
         val type: String,
 
-        @SerializedName("artist")
-        val artist: ArtistData,
+    @SerializedName("artist")
+        val artist: ArtistNameData,
 
-        @SerializedName("title")
+    @SerializedName("title")
         val title: String,
 
-        @SerializedName("album")
+    @SerializedName("album")
         val album: String,
 
-        @SerializedName("artwork")
+    @SerializedName("artwork")
         val artwork: String?, // Make artwork nullable
 
-        @SerializedName("length")
+    @SerializedName("length")
         val length: Int,
 
-        @SerializedName("genre")
+    @SerializedName("genre")
         val genre: String,
 
-        @SerializedName("releaseyear")
+    @SerializedName("releaseyear")
         val releaseyear: Int,
 
-        @SerializedName("created_at")
+    @SerializedName("created_at")
         val createdAt: String,
 
-        @SerializedName("started_at")
+    @SerializedName("started_at")
         val startedAt: String,
 
-        @SerializedName("ends_at")
+    @SerializedName("ends_at")
         val endsAt: String
 ) : Parcelable {
 

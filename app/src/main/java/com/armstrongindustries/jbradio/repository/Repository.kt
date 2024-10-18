@@ -24,7 +24,36 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
-
+/**
+ * Repository class for managing data related to the current song.
+ * @param application The application context.
+ * @property _id The MutableLiveData for the song ID.
+ * @property id The LiveData for the song ID.
+ * @property _artist The MutableLiveData for the artist name.
+ * @property artist The LiveData for the artist name.
+ * @property _title The MutableLiveData for the song title.
+ * @property title The LiveData for the song title.
+ * @property _album The MutableLiveData for the album name.
+ * @property album The LiveData for the album name.
+ * @property _artwork The MutableLiveData for the artwork URL.
+ * @property artwork The LiveData for the artwork URL.
+ * @property _imageBitmap The MutableLiveData for the artwork Bitmap.
+ * @property imageBitmap The LiveData for the artwork Bitmap.
+ * @property _error The MutableLiveData for error messages.
+ * @property error The LiveData for error messages.
+ * @property retrofit The Retrofit instance for making API requests.
+ * @property service The ApiDao instance for making API requests.
+ * @property coroutineScope The coroutine scope for performing repository operations.
+ * @property startPeriodicFetching Starts periodic fetching of current song data.
+ * @property fetchCurrentSong Fetches the current song data from the API.
+ * @property loadImage Loads the artwork image from the given URL.
+ * @property uriParser Parses the given URL into a URI.
+ * @property getBitmap Retrieves a Bitmap from a drawable resource.
+ * @property handleError Handles errors by updating LiveData and logging them.
+ * @property clear Cancels the coroutine scope for repository operations.
+ * @return A Repository instance.
+ * @see Repository
+ */
 class Repository private constructor(private val application: Application) {
 
     private val _id = MutableLiveData<Int>()
@@ -58,6 +87,20 @@ class Repository private constructor(private val application: Application) {
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
+    /**
+     * Companion object for the Repository class.
+     * @property INSTANCE The singleton instance of the Repository.
+     * @property getInstance Returns the singleton instance of the Repository.
+     * @property startPeriodicFetching Starts periodic fetching of current song data.
+     * @property fetchCurrentSong Fetches the current song data from the API.
+     * @property loadImage Loads the artwork image from the given URL.
+     * @property uriParser Parses the given URL into a URI.
+     * @property getBitmap Retrieves a Bitmap from a drawable resource.
+     * @property handleError Handles errors by updating LiveData and logging them.
+     * @property clear Cancels the coroutine scope for repository operations.
+     * @return A Repository instance.
+     * @see Repository
+     */
     companion object {
         @Volatile
         private var INSTANCE: Repository? = null
@@ -93,7 +136,7 @@ class Repository private constructor(private val application: Application) {
             if (response.isSuccessful) {
                 val body = response.body()
                 _id.postValue(body?.id ?: INT_ERROR_VALUE)
-                _artist.postValue(body?.artist?.name ?: DEFAULT_VALUE)
+                _artist.postValue(body?.artist?.artistName ?: DEFAULT_VALUE)
                 _title.postValue(body?.title ?: DEFAULT_VALUE)
                 _album.postValue(body?.album ?: DEFAULT_VALUE)
                 _artwork.postValue(body?.artwork ?: DEFAULT_ARTWORK)

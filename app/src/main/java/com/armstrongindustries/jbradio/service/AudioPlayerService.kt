@@ -22,27 +22,56 @@ import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
 import com.armstrongindustries.jbradio.data.Constants
 import com.armstrongindustries.jbradio.repository.Repository
-import com.google.android.material.R
 import com.google.common.util.concurrent.ListenableFuture
 
 /**
- *
+ * Service class for managing the audio player.
+ * @property mediaNotification The notification manager for displaying notifications.
+ * @property repository The repository for managing data related to the current song.
+ * @property mediaSession The media session for controlling the audio player.
+ * @property exoPlayer The ExoPlayer instance for playing audio.
+ * @property idMetaData The MutableLiveData for the song ID.
+ * @property artistMetaData The MutableLiveData for the artist name.
+ * @property songTitleLiveData The MutableLiveData for the song title.
+ * @property albumTitleMetaData The MutableLiveData for the album name.
+ * @property artworkMetaData The MutableLiveData for the artwork URL.
+ * @property binder The binder for binding to the service.
+ * @property onCreate Initializes the ExoPlayer and MediaSession.
+ * @property requestNotificationPermission Requests notification permission.
+ * @property isNotificationPermissionGranted Checks if notification permission is granted.
+ * @property initializeExoPlayer Initializes the ExoPlayer.
+ * @property initializeMediaSession Initializes the MediaSession.
+ * @property updateNotification Updates the notification.
+ * @property onDestroy Releases resources when the service is destroyed.
+ * @property AudioPlayerServiceBinder Inner class representing the binder for the service.
+ * @property buildMediaSource Builds the media source for the ExoPlayer.
+ * @property buildMediaMetaData Builds the media metadata for the ExoPlayer.
+ * @property buildHttpDataSource Builds the HTTP data source for the ExoPlayer.
+ * @property buildMediaItem Builds the media item for the ExoPlayer.
+ * @property onBind Binds to the service.
+ * @property onGetSession Retrieves the media session.
+ * @property getMediaSession Retrieves the media session.
+ * @return An AudioPlayerService instance.
+ * @see AudioPlayerService
  */
 class AudioPlayerService : MediaSessionService(),
     Player.Listener,
     MediaController.Listener {
-    private lateinit var repository: Repository
-    private var exoPlayer: ExoPlayer? = null
 
+    private lateinit var mediaNotification: MediaNotification
+
+    private lateinit var repository: Repository
+    private lateinit var mediaSession: MediaSession
+
+    private var exoPlayer: ExoPlayer? = null
     private val idMetaData = MutableLiveData<Int>()
     private val artistMetaData = MutableLiveData<String>()
     private val songTitleLiveData = MutableLiveData<String>()
     private val albumTitleMetaData = MutableLiveData<String>()
     private val artworkMetaData = MutableLiveData<String>()
-
-    lateinit var mediaSession: MediaSession
     private val binder = AudioPlayerServiceBinder()
-    private lateinit var mediaNotification: MediaNotification
+
+
 
     override fun onCreate() {
         super.onCreate()
@@ -80,8 +109,6 @@ class AudioPlayerService : MediaSessionService(),
         exoPlayer = ExoPlayer.Builder(this).build().apply {
             setHandleAudioBecomingNoisy(true)
             setWakeMode(C.WAKE_MODE_NETWORK)
-            setTheme(R.style.Theme_Material3_Dark)
-            setForegroundMode(true)
             addListener(this@AudioPlayerService)
             setMediaSource(buildMediaSource())
             setAudioAttributes(
@@ -94,9 +121,6 @@ class AudioPlayerService : MediaSessionService(),
             )
             prepare()
             playWhenReady = true
-        }
-        exoPlayer.let {
-            theme.applyStyle(android.R.style.Theme_Material, true)
         }
     }
 
@@ -223,13 +247,16 @@ class AudioPlayerService : MediaSessionService(),
             .build()
     }
 
-
     override fun onBind(intent: Intent?): IBinder {
         super.onBind(intent)
         return binder
     }
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession {
+        return mediaSession
+    }
+
+    fun getMediaSession(): MediaSession {
         return mediaSession
     }
 }

@@ -15,6 +15,18 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * Repository class for managing RadioMetaData items.
+ * @param context The application context.
+ * @property stationDao The Data Access Object for interacting with the database.
+ * @property repositoryScope The coroutine scope for performing repository operations.
+ * @property register Registers a new song by inserting its metadata into the database.
+ * @property deleteItem Deletes a specific RadioMetaData item from the database.
+ * @property insertItem Inserts a new RadioMetaData item into the database.
+ * @property updateItem Updates an existing RadioMetaData item in the database.
+ * @property getSongItems Retrieves a Flow of PagingData for RadioMetaData items.
+ * @return A RadioRepository instance.
+ */
 class RadioRepository(private val context: Context) {
 
     private val stationDao: StationDao = AppDatabase.getDatabase(context).stationDao()

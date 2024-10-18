@@ -1,10 +1,17 @@
 package com.armstrongindustries.jbradio.repository
 
 import androidx.room.TypeConverter
-import com.armstrongindustries.jbradio.data.ArtistData
+import com.armstrongindustries.jbradio.data.ArtistNameData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
+/**
+ * Type converters for Room database.
+ * @property gson Gson instance for JSON conversion.
+ * @property fromArtistData Converts an ArtistData object to a JSON string.
+ * @property toArtistData Converts a JSON string to an ArtistData object.
+ * @return A TypeConverter for Room database.
+ */
 class Converters {
 
     private val gson = Gson()
@@ -12,12 +19,12 @@ class Converters {
     /**
      * Converts an ArtistData object to a JSON string.
      *
-     * @param artistData The ArtistData object to be converted.
+     * @param artistNameData The ArtistData object to be converted.
      * @return A JSON string representation of the ArtistData object.
      */
     @TypeConverter
-    fun fromArtistData(artistData: ArtistData?): String? {
-        return artistData?.let { gson.toJson(it) }
+    fun fromArtistData(artistNameData: ArtistNameData?): String? {
+        return artistNameData?.let { gson.toJson(it) }
     }
 
     /**
@@ -27,9 +34,9 @@ class Converters {
      * @return The ArtistData object parsed from the JSON string.
      */
     @TypeConverter
-    fun toArtistData(data: String?): ArtistData? {
+    fun toArtistData(data: String?): ArtistNameData? {
         return data?.let {
-            val type = object : TypeToken<ArtistData>() {}.type
+            val type = object : TypeToken<ArtistNameData>() {}.type
             gson.fromJson(it, type)
         }
     }
