@@ -5,15 +5,11 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.armstrongindustries.jbradio.AppDatabase
+import com.armstrongindustries.jbradio.data.AppDatabase
 import com.armstrongindustries.jbradio.data.RadioMetaData
 import com.armstrongindustries.jbradio.data.StationDao
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * Repository class for managing RadioMetaData items.
@@ -37,7 +33,7 @@ class RadioRepository(private val context: Context) {
      *
      * @param song The RadioMetaData object representing the song to register.
      */
-    fun register(song: RadioMetaData) {
+    private fun register(song: RadioMetaData) {
         repositoryScope.launch(Dispatchers.IO) {
             runCatching {
                 stationDao.insertRadioMetaData(song)

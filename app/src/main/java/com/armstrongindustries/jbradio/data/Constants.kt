@@ -15,6 +15,7 @@ import androidx.annotation.DrawableRes
  */
 object Constants {
 
+    const val ACTION_NEXT: String = "Next"
     const val BASE_URL = "https://api.laut.fm/"
     const val STRING_ALBUM = "https://assets.laut.fm/5140d46b992d1e3772baf4b4000b276f"
     const val ACTION_PLAY = "com.armstrongindustries.jbradio.ACTION_PLAY"

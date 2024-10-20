@@ -15,4 +15,7 @@
     <string name="basic_audio_player_with_clip_loop_merge">Basic Audio Player with Clip Loop and Merge</string>
     <string name="playback_channel_name">JBRadioPlayback</string>
     <string name="playback_channel_description">A Media Player App for Indie artists and stations.</string>
+    <string name="action_play">Play</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_next">Next</string>
 </resources>

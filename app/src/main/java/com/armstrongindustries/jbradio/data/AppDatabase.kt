@@ -1,13 +1,10 @@
-package com.armstrongindustries.jbradio
+package com.armstrongindustries.jbradio.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.armstrongindustries.jbradio.data.RadioMetaData
-import com.armstrongindustries.jbradio.data.RadioMetaDataDao
-import com.armstrongindustries.jbradio.data.StationDao
 import com.armstrongindustries.jbradio.repository.Converters
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -26,23 +23,19 @@ abstract class AppDatabase : RoomDatabase() {
         val databaseWriteExecutor: ExecutorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS)
 
         /**
-         * Gets the AppDatabase instance.
+         * Gets the AppDatabase instance. Uses double locking method to avoid memory leaks.
          * @param context The application context.
          * @return The AppDatabase instance.
          */
-
-        @Synchronized
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
+                INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
                 )
                     .fallbackToDestructiveMigration()
-                    .build()
-                INSTANCE = instance
-                instance
+                    .build().also { INSTANCE = it }
             }
         }
     }
