@@ -10,12 +10,11 @@ import androidx.media3.session.MediaStyleNotificationHelper
 import com.armstrongindustries.jbradio.R
 import com.armstrongindustries.jbradio.data.Constants
 import com.armstrongindustries.jbradio.repository.Repository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-/**
- * Class responsible for managing the playback notification.
- * @property service the AudioPlayerService instance.
- * @property repository the Repository instance.
- */
 class MediaNotification(private val service: AudioPlayerService) {
     private val repository: Repository = Repository.getInstance(service.application)
 
@@ -39,26 +38,36 @@ class MediaNotification(private val service: AudioPlayerService) {
     fun updateNotification(
         songTitle: String?,
         songDescription: String?,
-        songIcon: Int?
+        songIcon: Int
     ) {
-        val mediaSessionToken = service.getMediaSession().platformToken
-        val notification = NotificationCompat.Builder(service, Constants.PLAYBACK_CHANNEL_ID)
-            .setContentTitle(songTitle ?: "Unknown Title")
-            .setContentText(songDescription ?: "Unknown Description")
-            .setLargeIcon(Constants.getBitmap(service, songIcon ?: R.drawable.sle_radio))
-            .setSmallIcon(R.drawable.ic_notifications_black_24dp) // Use a drawable resource ID for the small icon
-            .setContentIntent(createPendingIntent())
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-            .setStyle(
-                MediaStyleNotificationHelper.MediaStyle(service.getMediaSession())
-                    .setShowActionsInCompactView(0, 1, 2) // Show play, pause, skip actions
-            )
-            .addAction(createAction(R.string.action_play, Constants.ACTION_PLAY))
-            .addAction(createAction(R.string.action_pause, Constants.ACTION_PAUSE))
-            .addAction(createAction(R.string.action_next, Constants.ACTION_NEXT))
-            .build()
+        CoroutineScope(Dispatchers.IO).launch {
+            // Fetch the artwork URL from the repository
+            val artworkUrl = repository.artwork.value ?: Constants.BASE_URL
 
-        service.startForeground(Constants.PLAYBACK_NOTIFICATION_ID, notification)
+            // Load the image
+            val iconBitmap = repository.loadImage(artworkUrl)
+
+            // Now update the notification on the main thread
+            withContext(Dispatchers.Main) {
+                val notification = NotificationCompat.Builder(service, Constants.PLAYBACK_CHANNEL_ID)
+                    .setContentTitle(songTitle ?: "Unknown Title")
+                    .setContentText(songDescription ?: "Unknown Description")
+                    .setLargeIcon(iconBitmap) // Set the loaded bitmap here
+                    .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                    .setContentIntent(createPendingIntent())
+                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                    .setStyle(
+                        MediaStyleNotificationHelper.MediaStyle(service.getMediaSession())
+                            .setShowActionsInCompactView(0, 1, 2) // Show play, pause, skip actions
+                    )
+                    .addAction(createAction(R.string.action_play, Constants.ACTION_PLAY))
+                    .addAction(createAction(R.string.action_pause, Constants.ACTION_PAUSE))
+                    .addAction(createAction(R.string.action_next, Constants.ACTION_NEXT))
+                    .build()
+
+                service.startForeground(Constants.PLAYBACK_NOTIFICATION_ID, notification)
+            }
+        }
     }
 
     private fun createPendingIntent(): PendingIntent {
