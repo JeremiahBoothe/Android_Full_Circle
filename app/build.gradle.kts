@@ -104,11 +104,16 @@ dependencies {
     implementation(libs.androidx.ui.android)
     implementation(libs.cronet.embedded)
     implementation(libs.androidx.room.common)
+    implementation(libs.androidx.paging.runtime.ktx)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
     implementation(libs.androidx.work.runtime.ktx)
+    implementation("androidx.paging:paging-runtime:3.3.2") // Replace with the latest version
+    implementation("androidx.paging:paging-common-ktx:3.3.2")// For Kotlin extensions
+
+
     /**
      * JUnit 5 & Testing Dependencies
      */

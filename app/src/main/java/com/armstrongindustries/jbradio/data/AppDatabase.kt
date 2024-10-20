@@ -32,7 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
                 INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "app_database"
+                    "radio_database"
                 )
                     .fallbackToDestructiveMigration()
                     .build().also { INSTANCE = it }

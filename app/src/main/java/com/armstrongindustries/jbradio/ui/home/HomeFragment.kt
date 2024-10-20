@@ -91,8 +91,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+
         setupViewModelObservers()
+        return binding.root
     }
 
     /**

@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/song_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-</LinearLayout>
+    <ImageView
+            android:theme="@style/Theme.Material3.Dark"
+            android:id="@+id/song_artwork"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="songArt"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+            android:theme="@style/Theme.Material3.Dark"
+            android:id="@+id/song_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/song_artwork"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintBottom_toTopOf="@id/song_artist"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+    <TextView
+            android:theme="@style/Theme.Material3.Dark"
+            android:id="@+id/song_artist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/song_title"
+            app:layout_constraintStart_toEndOf="@id/song_artwork"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

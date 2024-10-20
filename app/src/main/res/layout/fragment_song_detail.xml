@@ -1,0 +1,50 @@
+<!-- res/layout/fragment_song_detail.xml -->
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+    <ImageView
+            android:theme="@style/Theme.Material3.Dark"
+            android:id="@+id/detail_song_artwork"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:contentDescription="TODO"
+            android:scaleType="centerCrop"/>
+
+    <TextView
+            android:theme="@style/Theme.Material3.Dark"
+            android:id="@+id/detail_song_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:paddingTop="8dp"/>
+
+    <TextView
+            android:theme="@style/Theme.Material3.Dark"
+            android:id="@+id/detail_song_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:paddingTop="4dp"/>
+
+    <TextView
+            android:theme="@style/Theme.Material3.Dark"
+            android:id="@+id/detail_song_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingTop="4dp"/>
+
+    <TextView
+            android:theme="@style/Theme.Material3.Dark"
+            android:id="@+id/detail_song_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:paddingTop="8dp"
+            android:text="Detailed description goes here..."/>
+
+</LinearLayout>

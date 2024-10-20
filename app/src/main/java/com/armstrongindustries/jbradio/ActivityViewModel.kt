@@ -72,6 +72,4 @@ class ActivityViewModel(application: Application) : AndroidViewModel(application
             Log.w("MyApplication", "Database initialization skipped, LiveData values are not yet available.")
         }
     }
-
-    // Rest of your class...
 }
