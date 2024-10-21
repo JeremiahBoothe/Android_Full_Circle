@@ -1,4 +1,4 @@
-package com.armstrongindustries.jbradio
+package com.armstrongindustries.jbradio.ui
 
 import android.app.Application
 import android.util.Log

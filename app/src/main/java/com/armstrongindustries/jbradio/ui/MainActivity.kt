@@ -1,4 +1,4 @@
-package com.armstrongindustries.jbradio
+package com.armstrongindustries.jbradio.ui
 
 import android.os.Bundle
 import android.widget.Toast
@@ -10,7 +10,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.armstrongindustries.jbradio.R
 import com.armstrongindustries.jbradio.databinding.ActivityMainBinding
+import com.armstrongindustries.jbradio.service.ExoPlayerLifecycleManager
+import com.armstrongindustries.jbradio.service.PermissionHandler
+import com.armstrongindustries.jbradio.service.WorkManagerUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**

@@ -1,4 +1,4 @@
-package com.armstrongindustries.jbradio
+package com.armstrongindustries.jbradio.service
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.exoplayer.ExoPlayer

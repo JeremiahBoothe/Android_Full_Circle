@@ -25,7 +25,7 @@
         android:theme="@style/Theme.Material3.Dark"
         tools:targetApi="35">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

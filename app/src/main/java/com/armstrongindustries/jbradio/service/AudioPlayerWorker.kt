@@ -1,10 +1,9 @@
-package com.armstrongindustries.jbradio
+package com.armstrongindustries.jbradio.service
 
 import android.content.Context
 import android.content.Intent
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.armstrongindustries.jbradio.service.AudioPlayerService
 
 /**
  * Worker class for managing audio playback tasks.

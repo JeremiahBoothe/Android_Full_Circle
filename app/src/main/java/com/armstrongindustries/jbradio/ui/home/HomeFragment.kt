@@ -16,7 +16,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
-import com.armstrongindustries.jbradio.ActivityViewModel
+import com.armstrongindustries.jbradio.ui.ActivityViewModel
 import com.armstrongindustries.jbradio.databinding.FragmentHomeBinding
 import com.armstrongindustries.jbradio.service.AudioPlayerService
 

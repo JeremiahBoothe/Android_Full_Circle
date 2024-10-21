@@ -1,4 +1,4 @@
-package com.armstrongindustries.jbradio
+package com.armstrongindustries.jbradio.service
 
 import android.Manifest
 import android.content.pm.PackageManager
