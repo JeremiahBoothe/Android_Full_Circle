@@ -10,6 +10,7 @@ plugins {
 ksp {
     arg("ksp.incremental", "true") // Ensure incremental processing is enabled
 }
+
 openApiGenerate {
     inputSpec.set("$rootDir/openapi/sleradio.yml")
     generatorName.set("kotlin")
@@ -49,14 +50,13 @@ android {
     }
     buildFeatures {
         viewBinding = true
-        //dataBinding = true
     }
 
-    //testOptions {
-    //    unitTests.all {
-    //        it.useJUnitPlatform()
-    //    }
-   // }
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
@@ -110,8 +110,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
     implementation(libs.androidx.work.runtime.ktx)
-    implementation("androidx.paging:paging-runtime:3.3.2") // Replace with the latest version
-    implementation("androidx.paging:paging-common-ktx:3.3.2")// For Kotlin extensions
+    implementation(libs.androidx.paging.runtime) // Replace with the latest version
+    implementation(libs.androidx.paging.common.ktx)// For Kotlin extensions
 
 
     /**

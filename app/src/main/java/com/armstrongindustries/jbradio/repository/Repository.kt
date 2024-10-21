@@ -80,7 +80,7 @@ class Repository private constructor(private val application: Application) {
             if (response.isSuccessful) {
                 response.body()?.let { body ->
                     _id.postValue(body.id ?: INT_ERROR_VALUE)
-                    _artist.postValue(body.artist?.artistName ?: DEFAULT_VALUE)
+                    _artist.postValue(body.artist.artistName ?: DEFAULT_VALUE)
                     _title.postValue(body.title ?: DEFAULT_VALUE)
                     _album.postValue(body.album ?: DEFAULT_VALUE)
                     _artwork.postValue(body.artwork ?: DEFAULT_ARTWORK)

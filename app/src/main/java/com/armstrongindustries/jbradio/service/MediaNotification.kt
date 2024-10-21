@@ -40,7 +40,7 @@ class MediaNotification(private val service: AudioPlayerService) {
         songDescription: String?,
         songIcon: Int
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             // Fetch the artwork URL from the repository
             val artworkUrl = repository.artwork.value ?: Constants.BASE_URL
 
@@ -71,15 +71,15 @@ class MediaNotification(private val service: AudioPlayerService) {
     }
 
     private fun createPendingIntent(): PendingIntent {
-        val intent = Intent(service, AudioPlayerService::class.java) // Adjust if necessary
-        return PendingIntent.getActivity(service, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val intent = Intent(service, AudioPlayerService::class.java)
+        return PendingIntent.getActivity(service, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
     }
 
     private fun createAction(label: Int, action: String): NotificationCompat.Action {
         val intent = Intent(action).apply {
             setPackage(service.packageName)
         }
-        val pendingIntent = PendingIntent.getBroadcast(service, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent = PendingIntent.getBroadcast(service, action.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         return NotificationCompat.Action.Builder(0, service.getString(label), pendingIntent).build()
     }
 }

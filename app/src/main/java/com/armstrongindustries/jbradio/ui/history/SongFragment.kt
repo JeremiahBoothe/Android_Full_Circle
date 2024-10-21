@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.armstrongindustries.jbradio.R
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -39,6 +40,14 @@ class SongFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.fetchSongs().collectLatest { pagingData ->
                 adapter.submitData(pagingData)
+            }
+        }
+
+        // Optional: Periodically refresh data every few seconds
+        lifecycleScope.launch {
+            while (true) {
+                viewModel.refreshSongs()
+                delay(5000) // Refresh every 5 seconds
             }
         }
 

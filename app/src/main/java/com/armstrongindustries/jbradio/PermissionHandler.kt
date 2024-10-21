@@ -7,6 +7,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
+/**
+ *
+ */
 class PermissionHandler(
     private val activity: AppCompatActivity,
     private val onPermissionGranted: () -> Unit

@@ -33,6 +33,7 @@ class ActivityViewModel(application: Application) : AndroidViewModel(application
         artist.observeForever { initializeDatabase() }
         title.observeForever { initializeDatabase() }
         album.observeForever { initializeDatabase() }
+        artwork.observeForever { initializeDatabase() }
     }
 
     private fun initializeDatabase() {
@@ -54,7 +55,7 @@ class ActivityViewModel(application: Application) : AndroidViewModel(application
                             album = album.value.toString(),
                             id = id.value!!.toInt(),
                             type = "TODO()",
-                            artwork = "TODO()",
+                            artwork = artwork.value.toString(),
                             length = 1,
                             genre = "TODO()",
                             releaseyear = 2024,

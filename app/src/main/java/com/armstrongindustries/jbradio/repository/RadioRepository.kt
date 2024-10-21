@@ -94,9 +94,44 @@ class RadioRepository(private val context: Context) {
     }
 
     /**
+     * Refreshes the songs by re-fetching the data from the source.
+     */
+    fun refreshSongs() {
+        // Logic to refresh songs, such as clearing the database and re-fetching
+        repositoryScope.launch(Dispatchers.IO) {
+            try {
+                // You could clear the existing items before re-fetching if needed
+                // stationDao.clearAllRadioMetaData()
+
+                // Fetch new songs, you might need to implement a specific method
+                // to do this depending on your architecture
+                val newSongs = fetchNewSongs() // Implement this method based on your needs
+
+                // Insert new songs into the database
+                newSongs.forEach { song ->
+                    register(song)
+                }
+            } catch (e: Exception) {
+                Log.e("RadioRepository", "Error refreshing songs: ${e.message}", e)
+            }
+        }
+    }
+
+    /**
      * Cancel any ongoing coroutines when the repository is no longer needed.
      */
     fun onCleared() {
         repositoryScope.cancel()
+    }
+
+    /**
+     * Fetches new songs from the API or other sources.
+     * @return A list of new RadioMetaData items.
+     */
+    private suspend fun fetchNewSongs(): List<RadioMetaData> {
+        // Implement the logic to fetch new songs here.
+        // This could involve making a network request or querying a database.
+        // For example:
+        return emptyList() // Replace with actual fetching logic
     }
 }

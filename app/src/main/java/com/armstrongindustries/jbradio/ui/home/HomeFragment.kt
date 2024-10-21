@@ -113,6 +113,7 @@ class HomeFragment : Fragment() {
         viewModel.artist.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
     }
 
     override fun onStart() {

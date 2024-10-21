@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.work.*
 import java.util.concurrent.TimeUnit
 
+/**
+ *
+ */
 class WorkManagerUtil(private val context: Context) {
 
     fun scheduleMetadataFetching() {
@@ -16,6 +19,9 @@ class WorkManagerUtil(private val context: Context) {
             .build()
 
         WorkManager.getInstance(context)
-            .enqueueUniquePeriodicWork("AudioPlayerMetadata", ExistingPeriodicWorkPolicy.REPLACE, workRequest)
+            .enqueueUniquePeriodicWork(
+                "AudioPlayerMetadata",
+                ExistingPeriodicWorkPolicy.REPLACE,
+                workRequest)
     }
 }

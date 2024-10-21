@@ -65,11 +65,13 @@ class AudioPlayerService : MediaSessionService(), Player.Listener, MediaControll
     }
 
     private fun startPlayback() {
-        exoPlayer?.setHandleAudioBecomingNoisy(true)
-        exoPlayer?.setWakeMode(C.WAKE_MODE_NETWORK)
-        exoPlayer?.setMediaSource(buildMediaSource())
-        exoPlayer?.prepare()
-        exoPlayer?.playWhenReady = true
+        exoPlayer?.apply {
+            setHandleAudioBecomingNoisy(true)
+            setWakeMode(C.WAKE_MODE_NETWORK)
+            setMediaSource(buildMediaSource())
+            prepare()
+            playWhenReady = true
+        }
     }
 
     private fun updateNotification(songTitle: String?, artist: String?, artworkUrl: String?) {
@@ -79,8 +81,11 @@ class AudioPlayerService : MediaSessionService(), Player.Listener, MediaControll
         // Load the artwork image if needed within a coroutine
         artworkUrl?.let { url ->
             serviceScope.launch {
-                repository.loadImage(url) // Load artwork into the repository's LiveData
-                // If you need to update any specific LiveData or state after loading, do that here
+                try {
+                    repository.loadImage(url) // Load artwork into the repository's LiveData
+                } catch (e: Exception) {
+                    // Handle the error gracefully (e.g., log it, show a default image, etc.)
+                }
             }
         }
     }
@@ -108,7 +113,9 @@ class AudioPlayerService : MediaSessionService(), Player.Listener, MediaControll
     }
 
     private fun initializeExoPlayer() {
-        exoPlayer = ExoPlayer.Builder(this).build()
+        exoPlayer = ExoPlayer.Builder(this).build().also {
+            it.addListener(this)
+        }
     }
 
     private fun initializeMediaSession() {
@@ -126,7 +133,6 @@ class AudioPlayerService : MediaSessionService(), Player.Listener, MediaControll
     }
 
     override fun onBind(intent: Intent?): IBinder {
-        super.onBind(intent)
         return binder
     }
 

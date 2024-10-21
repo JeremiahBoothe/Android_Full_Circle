@@ -13,15 +13,15 @@ material = "1.12.0"
 constraintlayout = "2.1.4"
 lifecycleLivedataKtx = "2.8.6"
 lifecycleViewmodelKtx = "2.8.6"
-navigationFragmentKtx = "2.8.2"
-navigationUiKtx = "2.8.2"
+navigationFragmentKtx = "2.8.3"
+navigationUiKtx = "2.8.3"
 media3CommonKtx = "1.4.1"
 media3Ui = "1.4.1"
 media3Exoplayer = "1.4.1"
 media3Session = "1.4.1"
 media3Datasource = "1.4.1"
 retrofitVersion = "2.11.0"
-uiAndroid = "1.7.3"
+uiAndroid = "1.7.4"
 cronetEmbedded = "119.6045.31"
 junitJupiter = "5.11.2"
 roomCommon = "2.6.1"
@@ -32,6 +32,8 @@ pagingRuntimeKtx = "3.3.2"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-media3-common = { module = "androidx.media3:media3-common", version.ref = "media3CommonKtx" }
+androidx-paging-common-ktx = { module = "androidx.paging:paging-common-ktx", version.ref = "pagingRuntimeKtx" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "pagingRuntimeKtx" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCommon" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCommon" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomCommon" }
