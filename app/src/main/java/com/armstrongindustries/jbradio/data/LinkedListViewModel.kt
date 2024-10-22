@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+/**
+ * This class represents the Viewmodel for a linked list.
+ */
 class LinkedListViewModel<T> : ViewModel() {
     private var head: Node<T>? = null
     private var size = 0

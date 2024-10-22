@@ -26,7 +26,7 @@ import com.google.android.material.R
 import com.google.common.util.concurrent.ListenableFuture
 
 /**
- *
+ * Forgeground Service to allow the audio player to be played in the background uninterrupted.
  */
 class AudioPlayerService : MediaSessionService(),
     Player.Listener,

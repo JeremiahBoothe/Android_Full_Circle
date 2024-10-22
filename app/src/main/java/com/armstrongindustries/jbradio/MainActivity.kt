@@ -26,11 +26,16 @@ import com.armstrongindustries.jbradio.service.AudioPlayerService
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
- * Entry point for the application, initializing the database to support app functionality.
- * @author Jeremiah Boothe
- * @date 10/06/2024
- * @param
- */
+ * MainActivity is the entry point of the application.
+ * @param binding ActivityMainBinding is a reference to the layout of the activity.
+ * @param intentService Intent is used to start the service.
+ * @param serviceBinder AudioPlayerService.AudioPlayerServiceBinder is used to bind the service.
+ * @param isServiceBound Boolean is used to check if the service is bound.
+ * @param requestNotificationPermissionLauncher ActivityResultLauncher is used to request notification permission.
+ * @param _idLiveData MutableLiveData<Int> is used to store the id of the song.
+ * @param _artistLiveData MutableLiveData<String> is used to store the artist of the song.
+ * @param _titleLiveData MutableLiveData<String> is used to store the title of the song.
+ **/
 @UnstableApi
 class MainActivity : AppCompatActivity() {
 

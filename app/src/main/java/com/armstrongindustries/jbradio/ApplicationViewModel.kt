@@ -9,7 +9,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MyAppViewModel(application: Application) : AndroidViewModel(application) {
+/**
+ * Potential future use of a Shared View Model for the application. This class is responsible for fetching data from the repository
+ */
+class ApplicationViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository = Repository.getInstance(application)
     val id: LiveData<Int> = repository.id
