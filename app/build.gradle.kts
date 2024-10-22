@@ -51,7 +51,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
     testOptions {
         unitTests.all {
             it.useJUnitPlatform()
@@ -83,6 +82,7 @@ dependencies {
 
     //implementation(libs.org.jetbrains.kotlin.kapt.gradle.plugin)
     //implementation(libs.gson)
+
     implementation(libs.kotlinx.coroutines.core)
 
     //implementation(libs.mongodb.driver.kotlin.coroutine)
